@@ -8,8 +8,32 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="EfCore.GenericServices" Version="9.0.0" />
+        <PackageReference Include="GenericServices.StatusGeneric" Version="1.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="src\Domain\Services\Impl\temp.json" />
+      <_ContentIncludedByDefault Remove="src\Domain\Services\Interfaces\temp.json" />
+      <_ContentIncludedByDefault Remove="src\Infrastructure\Services\temp.json" />
+      <_ContentIncludedByDefault Remove="src\Application\Behaviors\temp.json" />
+      <_ContentIncludedByDefault Remove="src\Infrastructure\Migrations\temp.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="src\Infrastructure\Utils\" />
     </ItemGroup>
 
 </Project>

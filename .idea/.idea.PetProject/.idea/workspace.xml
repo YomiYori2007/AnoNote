@@ -10,96 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7572cb27-b31e-4e93-82e7-8891927b9681" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.AnoNote/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.AnoNote/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.AnoNote/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.PetProject/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.PetProject/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AnoNote.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AnoNote.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PetProject.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Application/Tests/Behaviors/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Application/Tests/DTOs/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Application/Tests/Services/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Domain/Tests/Entities/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Domain/Tests/Services/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Infrastructure/Tests/Persistence/Context/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Infrastructure/Tests/Persistence/Repositories/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Infrastructure/Tests/Services/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Web/Tests/ApiIntegrationtest/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Web/Tests/Controllers/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Web/Tests/Middleware/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/AnoNote.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/AnoNote.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.OpenApi.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/PetProject.deps.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/PetProject.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/PetProject.runtimeconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/AnoNote.csproj.nuget.dgspec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/AnoNote.csproj.nuget.g.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/AnoNote.csproj.nuget.g.targets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/AnoNote.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/AnoNote.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/AnoNote.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/AnoNote.GlobalUsings.g.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/AnoNote.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/AnoNote.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.GlobalUsings.g.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.MvcApplicationPartsAssemblyInfo.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.MvcApplicationPartsAssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.csproj.Up2Date" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.genruntimeconfig.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/PetProject.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/apphost.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/PetProject.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/PetProject.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets/msbuild.build.PetProject.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.PetProject.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.PetProject.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/PetProject.csproj.nuget.dgspec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/PetProject.csproj.nuget.g.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/PetProject.csproj.nuget.g.targets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Application/Behaviors/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Application/DTOs/Requests/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Application/DTOs/Responses/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Application/Services/Impl/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Application/Services/Interfaces/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Entities/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Events/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Exceptions/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Services/Impl/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Services/Interfaces/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Infrastructure/EfContext/Configurations/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Migrations/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Repositories/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Services/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/Controllers/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/Extensions/temp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PetProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PetProject/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,12 +28,18 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -137,7 +54,7 @@
     &quot;.NET Launch Settings Profile.PetProject: http.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -202,13 +119,23 @@
       <option name="presentableId" value="Default" />
       <updated>1752162534981</updated>
       <workItem from="1752162535322" duration="3020000" />
-      <workItem from="1752253242188" duration="1005000" />
+      <workItem from="1752253242188" duration="2449000" />
     </task>
+    <task id="LOCAL-00001" summary="Test DDD">
+      <option name="closed" value="true" />
+      <created>1752254445106</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1752254445106</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="OPEN_GENERIC_TABS">
@@ -251,7 +178,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="HEAD" />
                       </list>
                     </value>
                   </entry>
@@ -265,6 +192,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Test DDD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test DDD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
