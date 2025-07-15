@@ -15,5 +15,12 @@ public class Comment
     public string CommentText { get; private set; }
     public DateTime PublishedOn { get; private set; }
 
+    public Comment(string author, string commentText, DateTime publishedOn)
+    {
+        Author = author;
+        CommentText = commentText;
+        PublishedOn = publishedOn;
+    }
+
     public int NoteId { get; private set; }
 }

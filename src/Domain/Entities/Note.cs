@@ -9,6 +9,13 @@ public class Note
 {
     private Note() {}
     
+    public Note(string author, string text, DateTime publishedOn)
+    {
+        Author = author;
+        Text = text;
+        PublishedOn = publishedOn;
+        Validate();
+    }
     public int NoteId { get; private set; }
     [Required]
     [MaxLength(16)]
@@ -20,13 +27,6 @@ public class Note
     
     public ICollection<Comment> Comments { get; private set; }
 
-    public Note(string author, string text, int noteId, DateTime publishedOn)
-    {
-        Author = author;
-        Text = text;
-        NoteId = noteId;
-        PublishedOn = publishedOn;
-    }
     
     public static IStatusGeneric<Note> CreateNote(string author, string text, DateTime publishedOn)
     {
@@ -43,5 +43,11 @@ public class Note
             PublishedOn = publishedOn,
         };
         return status.SetResult(note);
+    }
+    private void Validate()
+    {
+        if (string.IsNullOrEmpty(Author)) {throw new Exception("Author is required");}
+        
+        if (string.IsNullOrEmpty(Text)) {throw new Exception("Text is required");}
     }
 }
