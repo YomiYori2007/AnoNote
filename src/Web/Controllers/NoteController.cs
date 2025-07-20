@@ -9,7 +9,7 @@ using PetProject.Application.Services.Interfaces;
 namespace PetProject.Web.Controllers;
 
 [ApiController]
-[Route("note/")]
+[Route("api/note")]
 public class NoteController : ControllerBase
 {
     private readonly EfContext _context;
@@ -21,23 +21,29 @@ public class NoteController : ControllerBase
         _noteRepository = noteRepository;
     }
 
+    [HttpGet]
+    [Route("get")]
+    public async Task<IActionResult> GetNoteById(int id)
+    {
+        var note = await _noteRepository.GetNoteById(id);
+        if (note == null) {return NotFound();}
+        return Ok(note);
+    }
+    
     [HttpPost]
-    [Route("/create")]
+    [Route("create")]
     public async Task<IActionResult> CreateNote([FromBody] CreateNoteDTO dto)
     {
-        var note = new Note(dto.Author, dto.Text, dto.CurrentDate);
-        await _noteRepository.Create(note);
+        Note note = new Note(dto.Title, dto.Author, dto.Text, dto.CurrentDate);
+        await _noteRepository.CreateNote(note);
         return Ok(note);
     }
 
     [HttpDelete]
-    [Route("/delete")]
-    public async Task<IActionResult> DeleteNote(int noteId) // Ваще тут title должно быть,
-                                                            // но я забыл про него :D
+    [Route("delete")]
+    public async Task<IActionResult> DeleteNote(string title) 
     {
-        var note = _context.Notes.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.NoteId == noteId).Result;
-        await _noteRepository.Delete(note);
+        await _noteRepository.DeleteNote(title);
         return Ok("Note deleted!");
     }
 }

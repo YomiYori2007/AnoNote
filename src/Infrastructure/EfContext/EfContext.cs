@@ -20,7 +20,27 @@ public class EfContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Note
+        modelBuilder.Entity<Note>().Property(x => x.Title).IsRequired();
+        modelBuilder.Entity<Note>().Property(x => x.Title).HasMaxLength(60);
         
+        modelBuilder.Entity<Note>().Property(x => x.Author).IsRequired();
+        modelBuilder.Entity<Note>().Property(x => x.Author).HasMaxLength(16);
+        
+        modelBuilder.Entity<Note>().Property(x => x.Text).IsRequired();
+        modelBuilder.Entity<Note>().Property(x => x.Text).HasMaxLength(500);
+        // Comment
+        modelBuilder.Entity<Comment>().Property(x => x.Author).IsRequired();
+        modelBuilder.Entity<Comment>().Property(x => x.Author).HasMaxLength(16);
+        
+        modelBuilder.Entity<Comment>().Property(x => x.CommentText).IsRequired();
+        modelBuilder.Entity<Comment>().Property(x => x.CommentText).HasMaxLength(500);
+        // Replies
+        modelBuilder.Entity<Replies>().Property(x => x.Author).IsRequired();
+        modelBuilder.Entity<Replies>().Property(x => x.Author).HasMaxLength(16);
+        
+        modelBuilder.Entity<Replies>().Property(x => x.CommentText).IsRequired();
+        modelBuilder.Entity<Replies>().Property(x => x.CommentText).HasMaxLength(500);
     }
 }
 

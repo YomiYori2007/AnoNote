@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using PetProject.Application.Services.Impl;
+using PetProject.Application.Services.Interfaces;
 using PetProject.Infrastructure.EfContext;
 
 
@@ -9,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddDbContext<EfContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString")));
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

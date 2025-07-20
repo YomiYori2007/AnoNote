@@ -40,6 +40,9 @@ namespace PetProject.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
+                    b.Property<int>("Like")
+                        .HasColumnType("integer");
+
                     b.Property<int>("NoteId")
                         .HasColumnType("integer");
 
@@ -66,6 +69,9 @@ namespace PetProject.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("character varying(16)");
 
+                    b.Property<int>("Like")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("PublishedOn")
                         .HasColumnType("timestamp with time zone");
 
@@ -74,9 +80,46 @@ namespace PetProject.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
+
                     b.HasKey("NoteId");
 
                     b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("PetProject.Domain.Entities.Replies", b =>
+                {
+                    b.Property<int>("RepliesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RepliesId"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CommentText")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int>("Like")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("PublishedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("RepliesId");
+
+                    b.ToTable("Replies");
                 });
 
             modelBuilder.Entity("PetProject.Domain.Entities.Comment", b =>

@@ -9,41 +9,23 @@ public class Note
 {
     private Note() {}
     
-    public Note(string author, string text, DateTime publishedOn)
+    public Note(string title, string author, string text, DateTime publishedOn)
     {
+        Title = title;
         Author = author;
         Text = text;
         PublishedOn = publishedOn;
         Validate();
     }
     public int NoteId { get; private set; }
-    [Required]
-    [MaxLength(16)]
+    public string Title { get; private set; }
     public string Author { get; private set; }
-    [Required]
-    [MaxLength(500)]
     public string Text { get; private set; }
+    public int Like { get; private set; }
     public DateTime PublishedOn { get; private set; }
     
     public ICollection<Comment> Comments { get; private set; }
-
     
-    public static IStatusGeneric<Note> CreateNote(string author, string text, DateTime publishedOn)
-    {
-        var status = new StatusGenericHandler<Note>();
-        if (string.IsNullOrWhiteSpace(text) || string.IsNullOrWhiteSpace(author))
-        {
-            status.AddError("Author or Text is empty");
-        }
-
-        var note = new Note()
-        {
-            Author = author,
-            Text = text,
-            PublishedOn = publishedOn,
-        };
-        return status.SetResult(note);
-    }
     private void Validate()
     {
         if (string.IsNullOrEmpty(Author)) {throw new Exception("Author is required");}

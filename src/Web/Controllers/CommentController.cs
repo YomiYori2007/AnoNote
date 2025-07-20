@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PetProject.Application.DTOs.Requests;
+using PetProject.Application.DTOs.Responses;
 using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
 using PetProject.Infrastructure.EfContext;
@@ -9,7 +11,7 @@ using PetProject.Infrastructure.EfContext;
 namespace PetProject.Web.Controllers;
 
 [ApiController]
-[Route("comment")]
+[Route("api/comment")]
 public class CommentController : ControllerBase
 {
     private readonly ICommentRepository _commentRepository;
@@ -21,22 +23,32 @@ public class CommentController : ControllerBase
         _context = context;
     }
 
-    [HttpPost]
-    [Route("/create")]
-    public async Task<IActionResult> CreateComment([FromBody] CreateCommentDTO dto)
+    [HttpGet]
+    [Route("get")]
+    public async Task<ActionResult<GetCommentDTO>> GetCommentById(int id)
     {
-        var comment = new Comment(dto.Author, dto.Text, dto.CurrentDate);
-        await _commentRepository.Create(comment);
+        var comment = await _commentRepository.GetCommentById(id);
+        return Ok(comment);
+    }
+    
+    [HttpPost]
+    [Route("create")]
+    public async Task<IActionResult> CreateComment([FromBody] CreateCommentDTO dto, int noteId)
+    {
+        var comment = new Comment(
+            author: dto.Author, 
+            commentText: dto.Text, 
+            publishedOn: dto.CurrentDate,
+            id: noteId);
+        await _commentRepository.CreateComment(comment);
         return Ok("Comment created");
     }
 
     [HttpDelete]
-    [Route("/delete")]
+    [Route("delete")]
     public async Task<IActionResult> DeleteComment(int noteid)
     {
-        var comment = _context.Comment.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.CommentId == noteid);
-        await _commentRepository.Delete(await comment);
-        return Ok("Comment deleted");
+        await _commentRepository.DeleteCommentById(noteid);
+        return Ok("Comment has been deleted");
     }
 }
