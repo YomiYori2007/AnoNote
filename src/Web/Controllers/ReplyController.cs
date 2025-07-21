@@ -28,11 +28,11 @@ public class ReplyController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public async Task<IActionResult> CreateReply([FromBody] CreateReplyDTO dto, int commentId)
+    public async Task<IActionResult> CreateReply([FromBody] CreateReplyDTO dto)
     {
         var reply = new Reply(
             author:  dto.Author,
-            commentId:  commentId,
+            commentId:  dto.CommentId,
             commentText:   dto.Text,
             publishedOn:  dto.CurrentDate
             );

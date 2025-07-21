@@ -90,13 +90,13 @@ namespace PetProject.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("PetProject.Domain.Entities.Replies", b =>
+            modelBuilder.Entity("PetProject.Domain.Entities.Reply", b =>
                 {
-                    b.Property<int>("RepliesId")
+                    b.Property<int>("ReplyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RepliesId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ReplyId"));
 
                     b.Property<string>("Author")
                         .IsRequired()
@@ -117,9 +117,11 @@ namespace PetProject.Migrations
                     b.Property<DateTime>("PublishedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("RepliesId");
+                    b.HasKey("ReplyId");
 
-                    b.ToTable("Replies");
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("Reply");
                 });
 
             modelBuilder.Entity("PetProject.Domain.Entities.Comment", b =>
@@ -129,6 +131,20 @@ namespace PetProject.Migrations
                         .HasForeignKey("NoteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PetProject.Domain.Entities.Reply", b =>
+                {
+                    b.HasOne("PetProject.Domain.Entities.Comment", null)
+                        .WithMany("Replies")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PetProject.Domain.Entities.Comment", b =>
+                {
+                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("PetProject.Domain.Entities.Note", b =>

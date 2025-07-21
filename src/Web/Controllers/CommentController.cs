@@ -33,13 +33,13 @@ public class CommentController : ControllerBase
     
     [HttpPost]
     [Route("create")]
-    public async Task<IActionResult> CreateComment([FromBody] CreateCommentDTO dto, int noteId)
+    public async Task<IActionResult> CreateComment([FromBody] CreateCommentDTO dto)
     {
         var comment = new Comment(
             author: dto.Author, 
             commentText: dto.Text, 
             publishedOn: dto.CurrentDate,
-            id: noteId);
+            id: dto.NoteId);
         await _commentRepository.CreateComment(comment);
         return Ok("Comment created");
     }
