@@ -46,9 +46,9 @@ public class CommentController : ControllerBase
 
     [HttpDelete]
     [Route("delete")]
-    public async Task<IActionResult> DeleteComment(int noteid)
+    public async Task<IActionResult> DeleteComment(int commentid)
     {
-        await _commentRepository.DeleteCommentById(noteid);
+        await _commentRepository.DeleteCommentById(commentid);
         return Ok("Comment has been deleted");
     }
 }

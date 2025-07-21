@@ -36,7 +36,7 @@ public class CommentRepository : ICommentRepository
     {
         Comment? comment = await _context.Comment.AsNoTracking()
             .FirstOrDefaultAsync(p => p.CommentId == id);
-        _context.Remove(comment);
+        _context.Comment.Remove(comment);
         await _context.SaveChangesAsync();
     }
 }

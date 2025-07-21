@@ -16,10 +16,9 @@ public class Comment
     public int CommentId { get; private set; }
     public string Author { get; private set; }
     public string CommentText { get; private set; }
-
     public int Like { get; private set; } = 0;
     public DateTime PublishedOn { get; private set; }
-
+    public ICollection<Reply>  Replies { get; private set; }
     
     public int NoteId { get; private set; }
     

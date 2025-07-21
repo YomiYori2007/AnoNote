@@ -17,6 +17,7 @@ public class EfContext : DbContext
     
     public DbSet<Note> Notes { get; set; }
     public DbSet<Comment> Comment { get; set; }
+    public DbSet<Reply> Reply { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,11 +37,11 @@ public class EfContext : DbContext
         modelBuilder.Entity<Comment>().Property(x => x.CommentText).IsRequired();
         modelBuilder.Entity<Comment>().Property(x => x.CommentText).HasMaxLength(500);
         // Replies
-        modelBuilder.Entity<Replies>().Property(x => x.Author).IsRequired();
-        modelBuilder.Entity<Replies>().Property(x => x.Author).HasMaxLength(16);
+        modelBuilder.Entity<Reply>().Property(x => x.Author).IsRequired();
+        modelBuilder.Entity<Reply>().Property(x => x.Author).HasMaxLength(16);
         
-        modelBuilder.Entity<Replies>().Property(x => x.CommentText).IsRequired();
-        modelBuilder.Entity<Replies>().Property(x => x.CommentText).HasMaxLength(500);
+        modelBuilder.Entity<Reply>().Property(x => x.CommentText).IsRequired();
+        modelBuilder.Entity<Reply>().Property(x => x.CommentText).HasMaxLength(500);
     }
 }
 

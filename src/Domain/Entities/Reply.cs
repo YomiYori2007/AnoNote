@@ -1,17 +1,20 @@
 ﻿namespace PetProject.Domain.Entities;
 
-public class Replies
+public class Reply
 {
-    public Replies(string author, string commentText, DateTime publishedOn)
+    public Reply(int commentId, string author, string commentText, DateTime publishedOn)
     {
         Author = author;
         CommentText = commentText;
         PublishedOn = publishedOn;
+        CommentId = commentId;
     }
-    public int RepliesId { get; private set; }
+
+    public int ReplyId { get; private set; }
     public string Author { get; private set; }
     public string CommentText { get; private set; }
-    public int Like {get; private set; }
+    
+    public int Like {get; private set; } = 0;
     public DateTime PublishedOn { get; private set; }
 
     
