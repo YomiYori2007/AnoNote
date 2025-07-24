@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
 using PetProject.Infrastructure.EfContext;
@@ -31,6 +33,24 @@ public class NoteRepository : INoteRepository
         Note? note = await _context.Notes.AsNoTracking()
             .FirstOrDefaultAsync(p => p.Title == title);
         _context.Remove(note);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<Note?> GetAllCommAndRepl(int id)
+    {
+        return await _context.Notes
+            .AsSplitQuery()
+            .AsNoTracking()
+            .Include(p => p.Comments)
+            .ThenInclude(p => p.Replies)
+            .FirstOrDefaultAsync(p => p.NoteId == id);
+    }
+
+    public async Task LikeNoteById(int commentId)
+    {
+        Note? note = await _context.Notes
+            .FirstOrDefaultAsync(p => p.NoteId == commentId);
+        note?.LikeNote();
         await _context.SaveChangesAsync();
     }
 }

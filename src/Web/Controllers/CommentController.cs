@@ -30,6 +30,14 @@ public class CommentController : ControllerBase
         var comment = await _commentRepository.GetCommentById(id);
         return Ok(comment);
     }
+
+    [HttpGet]
+    [Route("get-replies-of-comment")]
+    public async Task<ActionResult> GetRepliesOfCommentById(int id)
+    {
+        var comment = await _commentRepository.GetAllRepliesOfCommentById(id);
+        return Ok(comment);
+    }
     
     [HttpPost]
     [Route("create")]
@@ -46,9 +54,17 @@ public class CommentController : ControllerBase
 
     [HttpDelete]
     [Route("delete")]
-    public async Task<IActionResult> DeleteComment(int commentid)
+    public async Task<IActionResult> DeleteComment(int commentId)
     {
-        await _commentRepository.DeleteCommentById(commentid);
+        await _commentRepository.DeleteCommentById(commentId);
         return Ok("Comment has been deleted");
+    }
+
+    [HttpPatch]
+    [Route("like-comment")]
+    public async Task<IActionResult> LikeComment(int commentId)
+    {
+        await _commentRepository.LikeCommentById(commentId);
+        return Ok("Comment liked");
     }
 }

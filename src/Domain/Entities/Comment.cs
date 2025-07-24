@@ -21,5 +21,7 @@ public class Comment
     public ICollection<Reply>  Replies { get; private set; }
     
     public int NoteId { get; private set; }
-    
+
+    public void LikeComm() => Like++;
+
 }

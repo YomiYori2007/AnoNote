@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Application.DTOs.Responses;
@@ -22,6 +23,14 @@ public class CommentRepository : ICommentRepository
         return await _context.Comment.AsNoTracking()
             .FirstAsync(p => p.CommentId == id);
     }
+
+    public async Task<Comment?> GetAllRepliesOfCommentById(int id)
+    {
+        return await _context.Comment
+            .AsNoTracking()
+            .Include(p => p.Replies)
+            .FirstOrDefaultAsync(p => p.CommentId == id);
+    }
     
     public async Task<Comment> CreateComment(Comment comment)
     {
@@ -37,6 +46,14 @@ public class CommentRepository : ICommentRepository
         Comment? comment = await _context.Comment.AsNoTracking()
             .FirstOrDefaultAsync(p => p.CommentId == id);
         _context.Comment.Remove(comment);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task LikeCommentById(int commentId)
+    {
+        Comment? comment = await _context.Comment
+            .FirstOrDefaultAsync(p => p.CommentId == commentId);
+        comment?.LikeComm();
         await _context.SaveChangesAsync();
     }
 }

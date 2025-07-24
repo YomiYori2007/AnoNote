@@ -21,7 +21,7 @@ public class Note
     public string Title { get; private set; }
     public string Author { get; private set; }
     public string Text { get; private set; }
-    public int Like { get; private set; }
+    public int Like { get; private set; } = 0;
     public DateTime PublishedOn { get; private set; }
     
     public ICollection<Comment> Comments { get; private set; }
@@ -32,4 +32,6 @@ public class Note
         
         if (string.IsNullOrEmpty(Text)) {throw new Exception("Text is required");}
     }
+
+    public void LikeNote() => Like++;
 }

@@ -22,6 +22,14 @@ public class NoteController : ControllerBase
     }
 
     [HttpGet]
+    [Route("get-comm-and-repl")]
+    public async Task<IActionResult> GetCommAndRepl(int id)
+    {
+        var note = await _noteRepository.GetAllCommAndRepl(id);
+        return Ok(note);
+    }
+    
+    [HttpGet]
     [Route("get")]
     public async Task<IActionResult> GetNoteById(int id)
     {
@@ -45,5 +53,13 @@ public class NoteController : ControllerBase
     {
         await _noteRepository.DeleteNote(title);
         return Ok("Note deleted!");
+    }
+
+    [HttpPatch]
+    [Route("like-note")]
+    public async Task<IActionResult> LikeNote(int noteId)
+    {
+        await _noteRepository.LikeNoteById(noteId);
+        return Ok("Note liked!");
     }
 }

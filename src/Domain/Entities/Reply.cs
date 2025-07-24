@@ -19,4 +19,6 @@ public class Reply
 
     
     public int CommentId { get; private set; }
+    
+    public void LikeReply() => Like++;
 }

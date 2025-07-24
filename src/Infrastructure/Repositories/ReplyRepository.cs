@@ -38,4 +38,12 @@ public class ReplyRepository : IReplyRepository
         _context.Reply.Remove(reply);
         await _context.SaveChangesAsync();
     }
+
+    public async Task LikeReplyById(int commentId)
+    {
+        Reply? reply = await _context.Reply
+            .FirstOrDefaultAsync(p => p.ReplyId == commentId);
+        reply?.LikeReply();
+        await _context.SaveChangesAsync();
+    }
 }

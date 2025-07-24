@@ -47,4 +47,12 @@ public class ReplyController : ControllerBase
         await _replyRepository.DeleteReplyById(replyId);
         return Ok("Comment has been deleted");
     }
+
+    [HttpPatch]
+    [Route("like-reply")]
+    public async Task<IActionResult> LikeReply(int replyId)
+    {
+        await _replyRepository.LikeReplyById(replyId);
+        return Ok("Reply has been liked");
+    }
 }
