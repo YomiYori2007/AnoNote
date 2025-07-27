@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using PetProject.Application.Services.Impl;
-using PetProject.Application.Services.Interfaces;
+using PetProject.Domain.Repository;
 using PetProject.Infrastructure.EfContext;
+using PetProject.Infrastructure.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);

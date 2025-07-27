@@ -1,6 +1,6 @@
 ﻿namespace PetProject.Application.DTOs.Responses;
 
-public class GetNoteDTO
+public class GetNoteDto
 {
     public string Title { get; set; }
     public string Author { get; set; }

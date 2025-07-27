@@ -1,8 +1,8 @@
 ﻿namespace PetProject.Application.DTOs.Requests;
 
-public class CreateReplyDTO
+public class CreateReplyDto
 {
-    public CreateReplyDTO(string author, string text, DateTime currentDate, int commentId)
+    public CreateReplyDto(string author, string text, DateTime currentDate, int commentId)
     {
         Author = author;
         Text = text;

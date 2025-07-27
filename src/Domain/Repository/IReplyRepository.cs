@@ -1,6 +1,6 @@
 ﻿using PetProject.Domain.Entities;
 
-namespace PetProject.Application.Services.Interfaces;
+namespace PetProject.Domain.Repository;
 
 public interface IReplyRepository
 {
@@ -8,4 +8,5 @@ public interface IReplyRepository
     Task<Reply> CreateReply(Reply comment);
     Task DeleteReplyById(int id);
     Task LikeReplyById(int commentId);
+    Task<List<Reply>> GetRepliesPagination(int pageNumber, int pageSize, int commentId);
 }

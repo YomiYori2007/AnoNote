@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+﻿
 
 namespace PetProject.Domain.Entities;
 
 public class Comment
 {
-    public Comment() {}
+    private Comment()
+    {
+    }
+
     public Comment(string author, string commentText, DateTime publishedOn, int id)
     {
         Author = author;

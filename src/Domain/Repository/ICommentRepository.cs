@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PetProject.Application.DTOs.Requests;
-using PetProject.Domain.Entities;
+﻿using PetProject.Domain.Entities;
 
-namespace PetProject.Application.Services.Interfaces;
+namespace PetProject.Domain.Repository;
 
 public interface ICommentRepository
 {
@@ -11,4 +9,5 @@ public interface ICommentRepository
     Task DeleteCommentById(int id);
     Task<Comment?> GetAllRepliesOfCommentById(int id);
     Task LikeCommentById(int commentId);
+    Task<List<Comment>> GetCommentPagination (int pageNumber, int pageSize, int noteId);
 }

@@ -3,9 +3,9 @@ using PetProject.Domain.Entities;
 
 namespace PetProject.Application.DTOs.Requests;
 
-public class CreateNoteDTO : ILinkToEntity<Note>
+public class CreateNoteDto : ILinkToEntity<Note>
 {
-    public CreateNoteDTO(string text, DateTime currentDate, string title, string author)
+    public CreateNoteDto(string text, DateTime currentDate, string title, string author)
     {
         Text = text;
         CurrentDate = currentDate;

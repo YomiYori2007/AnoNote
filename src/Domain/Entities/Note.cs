@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Net.Mime;
-using PetProject.Application.DTOs.Requests;
-using StatusGeneric;
-
-namespace PetProject.Domain.Entities;
+﻿namespace PetProject.Domain.Entities;
 
 public class Note
 {
-    private Note() {}
-    
+    private Note()
+    {
+    }
+
     public Note(string title, string author, string text, DateTime publishedOn)
     {
         Title = title;

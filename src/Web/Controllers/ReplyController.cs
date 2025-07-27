@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
-using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
-using PetProject.Infrastructure.EfContext;
+using PetProject.Domain.Repository;
 
 namespace PetProject.Web.Controllers;
 [ApiController]
@@ -10,12 +9,10 @@ namespace PetProject.Web.Controllers;
 public class ReplyController : ControllerBase
 {
     private readonly IReplyRepository _replyRepository;
-    private readonly EfContext _context;
-
-    public ReplyController(IReplyRepository replyRepository, EfContext context)
+    
+    public ReplyController(IReplyRepository replyRepository)
     {
         _replyRepository = replyRepository;
-        _context = context;
     }
 
     [HttpGet]
@@ -26,9 +23,17 @@ public class ReplyController : ControllerBase
         return Ok(reply);
     }
 
+    [HttpGet]
+    [Route("get-pagination")]
+    public async Task<ActionResult> GetPagination(int pageNumber, int pageSize, int commentId)
+    {
+        List<Reply> replies = await _replyRepository.GetRepliesPagination(pageNumber, pageSize, commentId);
+        return Ok(replies);
+    }
+
     [HttpPost]
     [Route("create")]
-    public async Task<IActionResult> CreateReply([FromBody] CreateReplyDTO dto)
+    public async Task<IActionResult> CreateReply([FromBody] CreateReplyDto dto)
     {
         var reply = new Reply(
             author:  dto.Author,

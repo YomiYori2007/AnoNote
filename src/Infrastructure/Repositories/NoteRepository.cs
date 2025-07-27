@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PetProject.Application.Services.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
 using PetProject.Domain.Entities;
-using PetProject.Infrastructure.EfContext;
+using PetProject.Domain.Repository;
 
-namespace PetProject.Application.Services.Impl;
+namespace PetProject.Infrastructure.Repositories;
 
 public class NoteRepository : INoteRepository
 {
-    private readonly EfContext _context;
+    private readonly EfContext.EfContext _context;
 
-    public NoteRepository(EfContext context)
+    public NoteRepository(EfContext.EfContext context)
     {
         _context = context;
     }
@@ -32,7 +29,12 @@ public class NoteRepository : INoteRepository
     {
         Note? note = await _context.Notes.AsNoTracking()
             .FirstOrDefaultAsync(p => p.Title == title);
-        _context.Remove(note);
+        if (note != null)
+            _context.Remove(note);
+        else
+        {
+            throw new Exception("Note not found");
+        }
         await _context.SaveChangesAsync();
     }
 
@@ -52,5 +54,15 @@ public class NoteRepository : INoteRepository
             .FirstOrDefaultAsync(p => p.NoteId == commentId);
         note?.LikeNote();
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Note>> GetNotesPagination(int page, int pageSize)
+    {
+        return await _context.Notes
+            .AsNoTracking()
+            .OrderBy(p => p.PublishedOn)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 }

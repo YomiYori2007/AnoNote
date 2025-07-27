@@ -3,9 +3,9 @@ using PetProject.Domain.Entities;
 
 namespace PetProject.Application.DTOs.Requests;
 
-public class CreateCommentDTO : ILinkToEntity<Comment>
+public class CreateCommentDto : ILinkToEntity<Comment>
 {
-    public CreateCommentDTO(string author, string text, DateTime currentDate, int noteId)
+    public CreateCommentDto(string author, string text, DateTime currentDate, int noteId)
     {
         Author = author;
         Text = text;

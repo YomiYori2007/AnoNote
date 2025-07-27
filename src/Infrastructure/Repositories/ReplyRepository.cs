@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
-using PetProject.Infrastructure.EfContext;
+using PetProject.Domain.Repository;
 
-namespace PetProject.Application.Services.Impl;
+namespace PetProject.Infrastructure.Repositories;
 
 public class ReplyRepository : IReplyRepository
 {
     
-    private readonly EfContext _context;
+    private readonly EfContext.EfContext _context;
 
-    public ReplyRepository(EfContext context)
+    public ReplyRepository(EfContext.EfContext context)
     {
         _context = context;
     }
@@ -26,7 +25,7 @@ public class ReplyRepository : IReplyRepository
         var comment = await _context.Comment
             .Include(p => p.Replies)
             .FirstOrDefaultAsync(p => p.CommentId == reply.CommentId);
-        comment.Replies.Add(reply);
+        comment?.Replies.Add(reply);
         await _context.SaveChangesAsync();
         return reply;
     }
@@ -35,7 +34,7 @@ public class ReplyRepository : IReplyRepository
     {
         Reply? reply = await _context.Reply.AsNoTracking()
             .FirstOrDefaultAsync(p => p.ReplyId == id);
-        _context.Reply.Remove(reply);
+        if (reply != null) _context.Reply.Remove(reply);
         await _context.SaveChangesAsync();
     }
 
@@ -45,5 +44,16 @@ public class ReplyRepository : IReplyRepository
             .FirstOrDefaultAsync(p => p.ReplyId == commentId);
         reply?.LikeReply();
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Reply>> GetRepliesPagination(int pageNumber, int pageSize, int commentId)
+    {
+        return await _context.Reply
+            .AsNoTracking()
+            .Where(p => p.CommentId == commentId)
+            .OrderBy(p => p.PublishedOn)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 }

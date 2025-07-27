@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Domain.Entities;
-using PetProject.Infrastructure.EfContext;
-using PetProject.Application;
-using PetProject.Application.Services.Interfaces;
+using PetProject.Domain.Repository;
 
 namespace PetProject.Web.Controllers;
 
@@ -12,12 +9,10 @@ namespace PetProject.Web.Controllers;
 [Route("api/note")]
 public class NoteController : ControllerBase
 {
-    private readonly EfContext _context;
     private readonly INoteRepository _noteRepository;
 
-    public NoteController(INoteRepository noteRepository, EfContext context)
+    public NoteController(INoteRepository noteRepository)
     {
-        _context = context;
         _noteRepository = noteRepository;
     }
 
@@ -37,10 +32,18 @@ public class NoteController : ControllerBase
         if (note == null) {return NotFound();}
         return Ok(note);
     }
+
+    [HttpGet]
+    [Route("get-pagination")]
+    public async Task<IActionResult> GetNotesPagination(int page, int pageSize)
+    {
+        List<Note> notes = await _noteRepository.GetNotesPagination(page, pageSize);
+        return Ok(notes);
+    }
     
     [HttpPost]
     [Route("create")]
-    public async Task<IActionResult> CreateNote([FromBody] CreateNoteDTO dto)
+    public async Task<IActionResult> CreateNote([FromBody] CreateNoteDto dto)
     {
         Note note = new Note(dto.Title, dto.Author, dto.Text, dto.CurrentDate);
         await _noteRepository.CreateNote(note);

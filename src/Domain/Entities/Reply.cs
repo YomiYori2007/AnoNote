@@ -2,6 +2,10 @@
 
 public class Reply
 {
+    private Reply()
+    {
+    }
+
     public Reply(int commentId, string author, string commentText, DateTime publishedOn)
     {
         Author = author;

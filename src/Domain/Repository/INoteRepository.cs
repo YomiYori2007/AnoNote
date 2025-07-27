@@ -1,6 +1,6 @@
 ﻿using PetProject.Domain.Entities;
 
-namespace PetProject.Application.Services.Interfaces;
+namespace PetProject.Domain.Repository;
 
 public interface INoteRepository
 {
@@ -9,4 +9,5 @@ public interface INoteRepository
     Task DeleteNote(string title);
     Task<Note?> GetAllCommAndRepl(int id);
     Task LikeNoteById(int commentId);
+    Task <List<Note>> GetNotesPagination(int page, int pageSize);
 }

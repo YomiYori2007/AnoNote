@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Application.DTOs.Responses;
-using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
-using PetProject.Infrastructure.EfContext;
+using PetProject.Domain.Repository;
 
 namespace PetProject.Web.Controllers;
 
@@ -15,12 +11,10 @@ namespace PetProject.Web.Controllers;
 public class CommentController : ControllerBase
 {
     private readonly ICommentRepository _commentRepository;
-    private readonly EfContext _context;
 
-    public CommentController(ICommentRepository commentRepository, EfContext context)
+    public CommentController(ICommentRepository commentRepository)
     {
         _commentRepository = commentRepository;
-        _context = context;
     }
 
     [HttpGet]
@@ -39,9 +33,17 @@ public class CommentController : ControllerBase
         return Ok(comment);
     }
     
+    [HttpGet]
+    [Route("get-pagination")]
+    public async Task<IActionResult> GetPagination(int pageNumber, int pageSize, int noteId)
+    {
+        List<Comment> comments = await _commentRepository.GetCommentPagination(pageNumber, pageSize, noteId);
+        return Ok(comments);
+    }
+    
     [HttpPost]
     [Route("create")]
-    public async Task<IActionResult> CreateComment([FromBody] CreateCommentDTO dto)
+    public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto dto)
     {
         var comment = new Comment(
             author: dto.Author, 
