@@ -25,7 +25,7 @@ public class NoteRepository : INoteRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteNote(string title) // Реализовать поиск из контроллера
+    public async Task DeleteNote(string title) 
     {
         Note? note = await _context.Notes.AsNoTracking()
             .FirstOrDefaultAsync(p => p.Title == title);
