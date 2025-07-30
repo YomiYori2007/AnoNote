@@ -18,10 +18,10 @@ public class NoteController : ControllerBase
 
     [HttpGet]
     [Route("get-comm-and-repl")]
-    public async Task<IActionResult> GetCommAndRepl(int id)
+    public async Task<Note> GetCommAndRepl(int id)
     {
         var note = await _noteRepository.GetAllCommAndRepl(id);
-        return Ok(note);
+        return note;
     }
     
     [HttpGet]
@@ -35,17 +35,24 @@ public class NoteController : ControllerBase
 
     [HttpGet]
     [Route("get-pagination")]
-    public async Task<IActionResult> GetNotesPagination(int page, int pageSize)
+    public async Task<List<Note?>> GetNotesPagination(int page, int pageSize)
     {
         List<Note> notes = await _noteRepository.GetNotesPagination(page, pageSize);
-        return Ok(notes);
+        return notes;
     }
     
     [HttpPost]
     [Route("create")]
     public async Task<IActionResult> CreateNote([FromBody] CreateNoteDto dto)
     {
-        Note note = new Note(dto.Title, dto.Author, dto.Text, dto.CurrentDate);
+        Note note = new Note
+        {
+            Title = dto.Title,
+            Author = dto.Author,
+            Text = dto.Text,
+            Like = 0,
+            PublishedOn = DateTime.Now,
+        };
         await _noteRepository.CreateNote(note);
         return Ok(note);
     }

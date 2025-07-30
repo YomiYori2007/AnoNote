@@ -35,12 +35,14 @@ public class ReplyController : ControllerBase
     [Route("create")]
     public async Task<IActionResult> CreateReply([FromBody] CreateReplyDto dto)
     {
-        var reply = new Reply(
-            author:  dto.Author,
-            commentId:  dto.CommentId,
-            commentText:   dto.Text,
-            publishedOn:  dto.CurrentDate
-            );
+        var reply = new Reply
+        {
+            Author = dto.Author,
+            CommentText = dto.Text,
+            Like = 0,
+            PublishedOn = DateTime.Now,
+            CommentId = dto.CommentId
+        };
         await _replyRepository.CreateReply(reply);
         return Ok("Comment created!");
     }
