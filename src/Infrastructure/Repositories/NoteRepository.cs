@@ -48,10 +48,10 @@ public class NoteRepository : INoteRepository
             .FirstOrDefaultAsync(p => p.NoteId == id);
     }
 
-    public async Task LikeNoteById(int commentId)
+    public async Task LikeNoteById(int noteId)
     {
         Note? note = await _context.Notes
-            .FirstOrDefaultAsync(p => p.NoteId == commentId);
+            .FirstOrDefaultAsync(p => p.NoteId == noteId);
         note?.LikeNote();
         await _context.SaveChangesAsync();
     }

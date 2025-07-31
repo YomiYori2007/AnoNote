@@ -21,16 +21,16 @@ public class NoteController : ControllerBase
     public async Task<Note> GetCommAndRepl(int id)
     {
         var note = await _noteRepository.GetAllCommAndRepl(id);
+        if (note == null) { return null;}
         return note;
     }
     
     [HttpGet]
     [Route("get")]
-    public async Task<IActionResult> GetNoteById(int id)
+    public async Task<Note?> GetNoteById(int id)
     {
         var note = await _noteRepository.GetNoteById(id);
-        if (note == null) {return NotFound();}
-        return Ok(note);
+        return note;
     }
 
     [HttpGet]
@@ -43,7 +43,7 @@ public class NoteController : ControllerBase
     
     [HttpPost]
     [Route("create")]
-    public async Task<IActionResult> CreateNote([FromBody] CreateNoteDto dto)
+    public async Task<Note> CreateNote([FromBody] CreateNoteDto dto)
     {
         Note note = new Note
         {
@@ -54,7 +54,7 @@ public class NoteController : ControllerBase
             PublishedOn = DateTime.Now,
         };
         await _noteRepository.CreateNote(note);
-        return Ok(note);
+        return note;
     }
 
     [HttpDelete]
