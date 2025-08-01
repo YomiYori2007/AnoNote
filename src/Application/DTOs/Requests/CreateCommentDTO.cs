@@ -5,6 +5,10 @@ namespace PetProject.Application.DTOs.Requests;
 
 public class CreateCommentDto : ILinkToEntity<Comment>
 {
+    public CreateCommentDto()
+    {
+    }
+
     public CreateCommentDto(string author, string text, DateTime currentDate, int noteId)
     {
         Author = author;

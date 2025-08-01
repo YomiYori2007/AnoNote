@@ -2,6 +2,10 @@
 
 public class CreateReplyDto
 {
+    public CreateReplyDto()
+    {
+    }
+
     public CreateReplyDto(string author, string text, DateTime currentDate, int commentId)
     {
         Author = author;

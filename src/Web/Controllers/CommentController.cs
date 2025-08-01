@@ -19,26 +19,26 @@ public class CommentController : ControllerBase
 
     [HttpGet]
     [Route("get")]
-    public async Task<ActionResult<GetCommentDTO>> GetCommentById(int id)
+    public async Task<Comment?> GetCommentById(int id)
     {
         var comment = await _commentRepository.GetCommentById(id);
-        return Ok(comment);
+        return comment;
     }
 
     [HttpGet]
     [Route("get-replies-of-comment")]
-    public async Task<ActionResult> GetRepliesOfCommentById(int id)
+    public async Task<Comment?> GetRepliesOfCommentById(int id)
     {
         var comment = await _commentRepository.GetAllRepliesOfCommentById(id);
-        return Ok(comment);
+        return comment;
     }
     
     [HttpGet]
     [Route("get-pagination")]
-    public async Task<IActionResult> GetPagination(int pageNumber, int pageSize, int noteId)
+    public async Task<List<Comment>> GetPagination(int pageNumber, int pageSize, int noteId)
     {
         List<Comment> comments = await _commentRepository.GetCommentPagination(pageNumber, pageSize, noteId);
-        return Ok(comments);
+        return comments;
     }
     
     [HttpPost]

@@ -6,7 +6,6 @@ namespace PetProject.Infrastructure.Repositories;
 
 public class ReplyRepository : IReplyRepository
 {
-    
     private readonly EfContext.EfContext _context;
 
     public ReplyRepository(EfContext.EfContext context)

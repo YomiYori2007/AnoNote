@@ -17,10 +17,10 @@ public class ReplyController : ControllerBase
 
     [HttpGet]
     [Route("get")]
-    public async Task<ActionResult> Get(int id)
+    public async Task<Reply> GetReplyById(int id)
     {
-        var reply = await _replyRepository.GetReplyId(id);
-        return Ok(reply);
+        Reply reply = await _replyRepository.GetReplyId(id);
+        return reply;
     }
 
     [HttpGet]
@@ -35,7 +35,7 @@ public class ReplyController : ControllerBase
     [Route("create")]
     public async Task<IActionResult> CreateReply([FromBody] CreateReplyDto dto)
     {
-        var reply = new Reply
+        Reply reply = new Reply
         {
             Author = dto.Author,
             CommentText = dto.Text,
@@ -43,8 +43,8 @@ public class ReplyController : ControllerBase
             PublishedOn = DateTime.Now,
             CommentId = dto.CommentId
         };
-        await _replyRepository.CreateReply(reply);
-        return Ok("Comment created!");
+        reply = await _replyRepository.CreateReply(reply);
+        return Ok(reply);
     }
 
     [HttpDelete]
