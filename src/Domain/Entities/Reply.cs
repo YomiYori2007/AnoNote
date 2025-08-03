@@ -7,6 +7,8 @@ public class Reply
     public string CommentText { get;  set; }
     public int Like {get; set; } = 0;
     public DateTime PublishedOn { get; set; }
+    public Guid UserId { get; set; }
+    public User  User { get; set; }
     
     public int CommentId { get; set; }
     

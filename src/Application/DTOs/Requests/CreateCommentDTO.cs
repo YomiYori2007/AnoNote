@@ -23,4 +23,5 @@ public class CreateCommentDto : ILinkToEntity<Comment>
     public DateTime CurrentDate { get; set; }
     
     public int NoteId { get; set; }
+    public Guid UserId { get; set; }
 }

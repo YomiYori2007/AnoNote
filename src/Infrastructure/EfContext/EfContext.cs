@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using PetProject.Domain.Entities;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace PetProject.Infrastructure.EfContext;
 
-public class EfContext : DbContext
+public class EfContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
     public EfContext()
     {
@@ -21,6 +24,23 @@ public class EfContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.ApplyConfigurationsFromAssembly((typeof(EfContext).Assembly));
+        
+        modelBuilder.Entity<Note>()
+            .HasOne(n => n.User)
+            .WithMany(p => p.Notes)
+            .HasForeignKey(n => n.UserId);
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.User)
+            .WithMany(p => p.Comments)
+            .HasForeignKey(c => c.UserId);
+        modelBuilder.Entity<Reply>()
+            .HasOne(r => r.User)
+            .WithMany(p => p.Replies)
+            .HasForeignKey(r => r.UserId);
+        
         // Note
         modelBuilder.Entity<Note>().Property(x => x.Title).IsRequired();
         modelBuilder.Entity<Note>().Property(x => x.Title).HasMaxLength(60);

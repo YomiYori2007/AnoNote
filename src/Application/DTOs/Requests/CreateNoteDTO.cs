@@ -16,5 +16,6 @@ public class CreateNoteDto : ILinkToEntity<Note>
     public string Author { get; set; }
     public string Text { get; set; }
     public DateTime CurrentDate { get; set; }
+    public Guid UserId { get; set; }
     
 }

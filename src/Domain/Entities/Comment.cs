@@ -9,8 +9,10 @@ public class Comment
     public string CommentText { get; set; }
     public int Like { get; set; } = 0;
     public DateTime PublishedOn { get; set; }
-    public ICollection<Reply>  Replies { get; set; }
+    public Guid UserId { get; set; }
+    public User  User { get; set; }
     
+    public ICollection<Reply>  Replies { get; set; }
     public int NoteId { get; set; }
 
     public void LikeComm() => Like++;

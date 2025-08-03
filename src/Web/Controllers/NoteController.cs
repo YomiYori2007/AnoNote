@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
 namespace PetProject.Web.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/note")]
 public class NoteController : ControllerBase
@@ -45,6 +48,7 @@ public class NoteController : ControllerBase
     [Route("create")]
     public async Task<Note> CreateNote([FromBody] CreateNoteDto dto)
     {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         Note note = new Note
         {
             Title = dto.Title,
@@ -52,11 +56,14 @@ public class NoteController : ControllerBase
             Text = dto.Text,
             Like = 0,
             PublishedOn = DateTime.Now,
+            UserId  = userId
         };
+        
         await _noteRepository.CreateNote(note);
         return note;
     }
 
+    [Authorize(Policy = "NoteOwner")]
     [HttpDelete]
     [Route("delete")]
     public async Task<IActionResult> DeleteNote(string title) 

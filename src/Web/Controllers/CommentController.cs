@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Application.DTOs.Responses;
 using PetProject.Domain.Entities;
@@ -6,6 +7,7 @@ using PetProject.Domain.Repository;
 
 namespace PetProject.Web.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/comment")]
 public class CommentController : ControllerBase
@@ -57,6 +59,7 @@ public class CommentController : ControllerBase
         return Ok("Comment created");
     }
 
+    [Authorize(Policy = "NoteOwner")]
     [HttpDelete]
     [Route("delete")]
     public async Task<IActionResult> DeleteComment(int commentId)

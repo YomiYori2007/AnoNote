@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
 namespace PetProject.Web.Controllers;
+
+[Authorize]
 [ApiController]
 [Route("api/reply")]
 public class ReplyController : ControllerBase
@@ -47,6 +50,7 @@ public class ReplyController : ControllerBase
         return Ok(reply);
     }
 
+    [Authorize(Policy = "NoteOwner")]
     [HttpDelete]
     [Route("delete")]
     public async Task<IActionResult> DeleteComment(int replyId)
