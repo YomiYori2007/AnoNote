@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Application.DTOs.Responses;
@@ -47,13 +48,15 @@ public class CommentController : ControllerBase
     [Route("create")]
     public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto dto)
     {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         var comment = new Comment
         {
             Author = dto.Author,
             CommentText = dto.Text,
             Like = 0,
-            PublishedOn = DateTime.Now,
-            NoteId = dto.NoteId
+            PublishedOn = DateTime.UtcNow,
+            NoteId = dto.NoteId,
+            UserId  = userId
         };
         await _commentRepository.CreateComment(comment);
         return Ok("Comment created");

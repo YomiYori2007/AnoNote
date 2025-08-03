@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using PetProject.Application.Services.Impl;
+using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 using PetProject.Infrastructure.EfContext;
@@ -20,15 +23,15 @@ builder.Services.AddDbContext<EfContext>(options =>
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<IReplyRepository, ReplyRepository>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+    .AddEntityFrameworkStores<EfContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services
-    .AddIdentity<User, IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<EfContext>()
-    .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -58,17 +61,49 @@ builder.Services.AddAuthorization(options =>
             note.UserId == Guid.Parse(context.User.FindFirstValue(ClaimTypes.NameIdentifier))
         ));
 });
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AnoNote API", Version = "v1" });
+    
+    // Добавляем поддержку JWT в Swagger
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header. Example: 'Bearer {token}'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseRouting();
+
 app.MapControllers();
 app.UseHttpsRedirection();
-Console.WriteLine($"JWT Config: {builder.Configuration["Jwt:Issuer"]}");
-Console.WriteLine($"All config: {string.Join(", ", builder.Configuration.AsEnumerable())}");
+
 app.Run();

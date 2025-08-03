@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace PetProject.Infrastructure.EfContext;
 
-public class EfContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+public class EfContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public EfContext()
     {

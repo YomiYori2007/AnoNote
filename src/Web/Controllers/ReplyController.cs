@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Domain.Entities;
@@ -38,13 +39,15 @@ public class ReplyController : ControllerBase
     [Route("create")]
     public async Task<IActionResult> CreateReply([FromBody] CreateReplyDto dto)
     {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         Reply reply = new Reply
         {
             Author = dto.Author,
             CommentText = dto.Text,
             Like = 0,
-            PublishedOn = DateTime.Now,
-            CommentId = dto.CommentId
+            PublishedOn = DateTime.UtcNow,
+            CommentId = dto.CommentId,
+            UserId  = userId
         };
         reply = await _replyRepository.CreateReply(reply);
         return Ok(reply);

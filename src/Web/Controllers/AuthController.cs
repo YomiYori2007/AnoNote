@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Auth;
 using PetProject.Application.Services.Impl;
+using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
 
 namespace PetProject.Web.Controllers;
@@ -10,10 +11,10 @@ namespace PetProject.Web.Controllers;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly UserManager<User> _userManager;
-    private readonly JwtService _jwtService;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IJwtService _jwtService;
 
-    public AuthController(UserManager<User> userManager, JwtService jwtService)
+    public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService)
     {
         _userManager = userManager;
         _jwtService = jwtService;
@@ -33,7 +34,7 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto dto)
     {
-        var user = new User { UserName = dto.Username, Email = dto.Email };
+        var user = new ApplicationUser { UserName = dto.Username, Email = dto.Email };
         var result = await _userManager.CreateAsync(user, dto.Password);
         
         if (!result.Succeeded)

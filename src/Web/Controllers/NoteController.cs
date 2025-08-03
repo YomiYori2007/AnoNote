@@ -55,7 +55,7 @@ public class NoteController : ControllerBase
             Author = dto.Author,
             Text = dto.Text,
             Like = 0,
-            PublishedOn = DateTime.Now,
+            PublishedOn = DateTime.UtcNow,
             UserId  = userId
         };
         

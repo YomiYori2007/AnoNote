@@ -2,11 +2,12 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
 
 namespace PetProject.Application.Services.Impl;
 
-public class JwtService
+public class JwtService : IJwtService
 {
     private readonly IConfiguration _configuration;
 
@@ -15,7 +16,7 @@ public class JwtService
         _configuration = configuration;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(ApplicationUser user)
     {
         var claims = new[]
         {

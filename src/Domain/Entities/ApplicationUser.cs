@@ -2,7 +2,7 @@
 
 namespace PetProject.Domain.Entities;
 
-public class User : IdentityUser<Guid>
+public class ApplicationUser : IdentityUser<Guid>
 {
     public ICollection<Note> Notes { get; set; }
     public ICollection<Comment> Comments { get; set; }

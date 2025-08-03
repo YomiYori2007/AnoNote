@@ -12,11 +12,11 @@
           "GenericServices.StatusGeneric": "1.2.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.18",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.18",
-          "Microsoft.AspNetCore.Identity.UI": "9.0.7",
-          "Microsoft.AspNetCore.OpenApi": "8.0.6",
+          "Microsoft.AspNetCore.Identity.UI": "8.0.18",
+          "Microsoft.AspNetCore.OpenApi": "8.0.18",
           "Microsoft.EntityFrameworkCore": "9.0.7",
           "Microsoft.EntityFrameworkCore.Design": "9.0.7",
-          "Microsoft.EntityFrameworkCore.Tools": "9.0.7",
+          "Microsoft.EntityFrameworkCore.Tools": "8.0.18",
           "Microsoft.NET.Test.Sdk": "17.14.1",
           "Moq": "4.20.72",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
@@ -125,7 +125,18 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Identity.UI/9.0.7": {},
+      "Microsoft.AspNetCore.Identity.UI/8.0.18": {
+        "dependencies": {
+          "Microsoft.Extensions.FileProviders.Embedded": "8.0.18",
+          "Microsoft.Extensions.Identity.Stores": "8.0.18"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Identity.UI.dll": {
+            "assemblyVersion": "8.0.18.0",
+            "fileVersion": "8.0.1825.31706"
+          }
+        }
+      },
       "Microsoft.AspNetCore.JsonPatch/9.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -138,14 +149,14 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/8.0.6": {
+      "Microsoft.AspNetCore.OpenApi/8.0.18": {
         "dependencies": {
           "Microsoft.OpenApi": "1.4.3"
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "assemblyVersion": "8.0.6.0",
-            "fileVersion": "8.0.624.26909"
+            "assemblyVersion": "8.0.18.0",
+            "fileVersion": "8.0.1825.31706"
           }
         }
       },
@@ -514,7 +525,7 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/9.0.7": {
+      "Microsoft.EntityFrameworkCore.Tools/8.0.18": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Design": "9.0.7"
         }
@@ -585,6 +596,22 @@
           "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
             "assemblyVersion": "9.0.0.7",
             "fileVersion": "9.0.725.31616"
+          }
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Abstractions/8.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "9.0.7"
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Embedded/8.0.18": {
+        "dependencies": {
+          "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.FileProviders.Embedded.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1825.31706"
           }
         }
       },
@@ -1334,12 +1361,12 @@
       "path": "microsoft.aspnetcore.identity.entityframeworkcore/8.0.18",
       "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.8.0.18.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Identity.UI/9.0.7": {
+    "Microsoft.AspNetCore.Identity.UI/8.0.18": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vJKNMp6Xycau0jYoALmGDJOXIGwvY+2uqQ5i9lhGfrU5mwy0LzOoFFs2KLHE3lp1f9YwjFNwwMGCnSNFpJFpeA==",
-      "path": "microsoft.aspnetcore.identity.ui/9.0.7",
-      "hashPath": "microsoft.aspnetcore.identity.ui.9.0.7.nupkg.sha512"
+      "sha512": "sha512-p/sqeMuM0hgsozOddjBTY1UYKHz4NVOqC1da3rG0P35nQjMdlY9eWym0dijF93vWTMeMX7w7PXBAFNLPFzEKFg==",
+      "path": "microsoft.aspnetcore.identity.ui/8.0.18",
+      "hashPath": "microsoft.aspnetcore.identity.ui.8.0.18.nupkg.sha512"
     },
     "Microsoft.AspNetCore.JsonPatch/9.0.0": {
       "type": "package",
@@ -1348,12 +1375,12 @@
       "path": "microsoft.aspnetcore.jsonpatch/9.0.0",
       "hashPath": "microsoft.aspnetcore.jsonpatch.9.0.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.OpenApi/8.0.6": {
+    "Microsoft.AspNetCore.OpenApi/8.0.18": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-G0Qdo5ZtxmBFZ41CFRopZbSVeS/xwezmqZE0vLYcggoB7EEsPOUKSWnSrJPC2C+02iANAnnq6bSMIlKBgdqCmA==",
-      "path": "microsoft.aspnetcore.openapi/8.0.6",
-      "hashPath": "microsoft.aspnetcore.openapi.8.0.6.nupkg.sha512"
+      "sha512": "sha512-iHqDbyK66dTL2M32nQ/kqYXGbQFj5bUr0eXJskJMsuPCF4CfJbJCuSnwWKq0m2TrMGuNV01RJLU61S2uvS04+g==",
+      "path": "microsoft.aspnetcore.openapi/8.0.18",
+      "hashPath": "microsoft.aspnetcore.openapi.8.0.18.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
       "type": "package",
@@ -1467,12 +1494,12 @@
       "path": "microsoft.entityframeworkcore.relational/9.0.7",
       "hashPath": "microsoft.entityframeworkcore.relational.9.0.7.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Tools/9.0.7": {
+    "Microsoft.EntityFrameworkCore.Tools/8.0.18": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NyRRParn9vUQDkHDeWoPU1/+E+gcHTBQR4Nn5XZPxBE5t6CiXwzl3ag0a6Z2SfrGSPyDDVT39r2cz33ar2xsZg==",
-      "path": "microsoft.entityframeworkcore.tools/9.0.7",
-      "hashPath": "microsoft.entityframeworkcore.tools.9.0.7.nupkg.sha512"
+      "sha512": "sha512-NjAp3CYIbaH6esFt2knQdib+it1mL17v6wtKGuhNpj2x5LqHCEIa53zcH3HTq+jzOBsUWu2chxsBXHo5d2ff0g==",
+      "path": "microsoft.entityframeworkcore.tools/8.0.18",
+      "hashPath": "microsoft.entityframeworkcore.tools.8.0.18.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "type": "package",
@@ -1522,6 +1549,20 @@
       "sha512": "sha512-aXEt8QW1Fj9aC81GfkMtfip4wfbkEA7VBvNkx6Rx6ZKyqXIF/9qzRtH6v/2096IDK4lt6dlQp5Ajf+kjHfUdOA==",
       "path": "microsoft.extensions.dependencymodel/9.0.7",
       "hashPath": "microsoft.extensions.dependencymodel.9.0.7.nupkg.sha512"
+    },
+    "Microsoft.Extensions.FileProviders.Abstractions/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZbaMlhJlpisjuWbvXr4LdAst/1XxH3vZ6A0BsgTphZ2L4PGuxRLz7Jr/S7mkAAnOn78Vu0fKhEgNF5JO3zfjqQ==",
+      "path": "microsoft.extensions.fileproviders.abstractions/8.0.0",
+      "hashPath": "microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.FileProviders.Embedded/8.0.18": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uHAMXifoju+Jb/r8103dghJnhKAvHRT5whwCvSN3zirPYw9uXrZXFSN9InETBIi4eNTkjqXEsq/OcMKJx+QKTw==",
+      "path": "microsoft.extensions.fileproviders.embedded/8.0.18",
+      "hashPath": "microsoft.extensions.fileproviders.embedded.8.0.18.nupkg.sha512"
     },
     "Microsoft.Extensions.Identity.Core/8.0.18": {
       "type": "package",
