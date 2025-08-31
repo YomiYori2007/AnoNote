@@ -11,11 +11,13 @@ namespace PetProject.Web.Controllers;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
+    private readonly IEmailService _emailService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IJwtService _jwtService;
 
-    public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService)
+    public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService, IEmailService emailService)
     {
+        _emailService = emailService;
         _userManager = userManager;
         _jwtService = jwtService;
     }
@@ -39,7 +41,27 @@ public class AuthController : ControllerBase
         
         if (!result.Succeeded)
             return BadRequest(result.Errors);
+        try
+        {
+            var subject = "Добро пожаловать на форум AnoNote!";
+            var body = $@"Мы рады вас приветствовать, {dto.Username}!
         
-        return Ok();
+Спасибо, что присоединились к нашему проекту. Вот несколько советов для начала:
+- Можете создать публичную заметку
+- Или пообсуждать существующие заметки
+- Уважайте других пользователей и наслаждайтесь!
+
+Если у вас есть вопросы, просто ответьте на это письмо.
+
+Команда AnoNote";
+
+            await _emailService.SendEmailAsync(dto.Email, subject, body);
+
+            return Ok(new { message = "Регистрация успешна. Приветственное письмо отправлено." });
+        }
+        catch (Exception ex)
+        {
+            return Ok(new { message = "Регистрация успешна, но не удалось отправить приветственное письмо." });
+        }
     }
 }

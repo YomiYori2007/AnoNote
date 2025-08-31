@@ -516,3 +516,9 @@ S:\Kurs\AnoNote\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 S:\Kurs\AnoNote\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 S:\Kurs\AnoNote\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 S:\Kurs\AnoNote\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+S:\Kurs\AnoNote\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+S:\Kurs\AnoNote\bin\Debug\net8.0\MailKit.dll
+S:\Kurs\AnoNote\bin\Debug\net8.0\MimeKit.dll
+S:\Kurs\AnoNote\bin\Debug\net8.0\System.Formats.Asn1.dll
+S:\Kurs\AnoNote\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+S:\Kurs\AnoNote\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

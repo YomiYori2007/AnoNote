@@ -20,6 +20,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<EfContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString")));
 
+builder.Services.AddOptions();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<IReplyRepository, ReplyRepository>();

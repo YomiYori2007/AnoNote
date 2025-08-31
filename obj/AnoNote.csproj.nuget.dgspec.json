@@ -51,6 +51,10 @@
               "target": "Package",
               "version": "[1.2.0, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.13.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.18, )"
@@ -86,6 +90,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.14.1, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[4.13.0, )"
             },
             "Moq": {
               "target": "Package",
