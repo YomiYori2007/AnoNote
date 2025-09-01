@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using PetProject.Application.DTOs.Auth;
+using PetProject.Application.Models;
 using PetProject.Application.Services.Impl;
 using PetProject.Application.Services.Interfaces;
 using PetProject.Domain.Entities;
@@ -11,13 +13,14 @@ namespace PetProject.Web.Controllers;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly IEmailService _emailService;
+    private readonly RabbitMqService _rabbitMqService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IJwtService _jwtService;
 
-    public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService, IEmailService emailService)
+    public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService, 
+        RabbitMqService rabbitMqService)
     {
-        _emailService = emailService;
+        _rabbitMqService = rabbitMqService;
         _userManager = userManager;
         _jwtService = jwtService;
     }
@@ -43,8 +46,11 @@ public class AuthController : ControllerBase
             return BadRequest(result.Errors);
         try
         {
-            var subject = "Добро пожаловать на форум AnoNote!";
-            var body = $@"Мы рады вас приветствовать, {dto.Username}!
+            var emailMessage = new EmailMessage
+            {
+                ToEmail = dto.Email,
+                Subject = "Добро пожаловать на форум AnoNote!",
+                Body = $@"Мы рады вас приветствовать, {dto.Username}!
         
 Спасибо, что присоединились к нашему проекту. Вот несколько советов для начала:
 - Можете создать публичную заметку
@@ -53,9 +59,10 @@ public class AuthController : ControllerBase
 
 Если у вас есть вопросы, просто ответьте на это письмо.
 
-Команда AnoNote";
-
-            await _emailService.SendEmailAsync(dto.Email, subject, body);
+Команда AnoNote"
+            };
+            
+            _rabbitMqService.SendMessage(emailMessage);
 
             return Ok(new { message = "Регистрация успешна. Приветственное письмо отправлено." });
         }

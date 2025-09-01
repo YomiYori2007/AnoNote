@@ -23,6 +23,8 @@ builder.Services.AddDbContext<EfContext>(options =>
 builder.Services.AddOptions();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddHostedService<RabbitMqConsumerService>();
+builder.Services.AddSingleton<RabbitMqService>();
 
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
