@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
+using PetProject.Infrastructure.Repositories;
 
 namespace PetProject.Web.Controllers;
 
@@ -62,13 +63,19 @@ public class NoteController : ControllerBase
         await _noteRepository.CreateNote(note);
         return note;
     }
-
-    [Authorize(Policy = "NoteOwner")]
+    
     [HttpDelete]
     [Route("delete")]
-    public async Task<IActionResult> DeleteNote(string title) 
+    public async Task<IActionResult> DeleteNote(int noteId) 
     {
-        await _noteRepository.DeleteNote(title);
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var result = await _noteRepository.DeleteNote(noteId, userId);
+
+        switch (result.ErrorCode)
+        {
+            case "not_found":
+                return NotFound("Note not found or you are not owner");
+        }
         return Ok("Note deleted!");
     }
 

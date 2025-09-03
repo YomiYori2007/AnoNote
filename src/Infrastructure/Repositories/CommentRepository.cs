@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PetProject.Application.Models;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
@@ -37,12 +38,24 @@ public class CommentRepository : ICommentRepository
         return comment;
     }
 
-    public async Task DeleteCommentById(int id)
+    public async Task<OperationResult> DeleteCommentById(int id, Guid userId)
     {
         Comment? comment = await _context.Comment.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.CommentId == id);
+            .FirstOrDefaultAsync(p => p.CommentId == id && p.UserId == userId);
+        
+        if (comment == null)
+        {
+            return new OperationResult()
+            {
+                Success = false,
+                Message = "Comment not found or this is not you are note",
+                ErrorCode = "not_found"
+            };
+        }
+        
         if (comment != null) _context.Comment.Remove(comment);
         await _context.SaveChangesAsync();
+        return new OperationResult() {Message = "Comment deleted!"};
     }
 
     public async Task LikeCommentById(int commentId)

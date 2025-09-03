@@ -149,7 +149,7 @@ public class NoteControllerTests
         var mockrepo = new Mock<INoteRepository>();
         var controller = new NoteController(mockrepo.Object);
 
-        var result = await controller.DeleteNote("text");
+        var result = await controller.DeleteNote(1);
         Assert.IsType<OkObjectResult>(result);
     }
 

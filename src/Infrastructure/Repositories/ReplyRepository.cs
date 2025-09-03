@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PetProject.Application.Models;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
@@ -29,12 +30,24 @@ public class ReplyRepository : IReplyRepository
         return reply;
     }
 
-    public async Task DeleteReplyById(int id)
+    public async Task<OperationResult> DeleteReplyById(int id, Guid userId)
     {
         Reply? reply = await _context.Reply.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.ReplyId == id);
+            .FirstOrDefaultAsync(p => p.ReplyId == id && p.UserId == userId);
+
+        if (reply == null)
+        {
+            return new OperationResult
+            {
+                Success = false,
+                Message = "Reply not found or this is not you are note",
+                ErrorCode = "not_found"
+            };
+        }
+        
         if (reply != null) _context.Reply.Remove(reply);
         await _context.SaveChangesAsync();
+        return new OperationResult() {Message = "Reply deleted"};
     }
 
     public async Task LikeReplyById(int commentId)

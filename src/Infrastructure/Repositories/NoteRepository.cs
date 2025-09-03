@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PetProject.Application.Models;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
@@ -25,17 +28,23 @@ public class NoteRepository : INoteRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteNote(string title) 
+    public async Task<OperationResult> DeleteNote(int noteId, Guid userId) 
     {
         Note? note = await _context.Notes.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.Title == title);
-        if (note != null)
-            _context.Remove(note);
-        else
+            .FirstOrDefaultAsync(p => p.NoteId == noteId && p.UserId == userId);
+
+        if (note == null)
         {
-            throw new Exception("Note not found");
+            return new OperationResult()
+            {
+                Success = false,
+                Message = "Note not found or this is not you are note",
+                ErrorCode = "not_found"
+            };
         }
+        _context.Remove(note);
         await _context.SaveChangesAsync();
+        return new OperationResult() {Message = "Note deleted!"};
     }
 
     public async Task<Note?> GetAllCommAndRepl(int id)

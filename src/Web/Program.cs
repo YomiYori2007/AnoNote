@@ -62,10 +62,12 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("NoteOwner", policy =>
         policy.RequireAssertion(context =>
-            context.User.IsInRole("Admin") ||
-            context.Resource is Note note &&
-            note.UserId == Guid.Parse(context.User.FindFirstValue(ClaimTypes.NameIdentifier))
-        ));
+        {
+            var userIdClaim = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdClaim))
+                return false;
+            return true;
+        }));
 });
 
 builder.Services.AddSwaggerGen(c =>

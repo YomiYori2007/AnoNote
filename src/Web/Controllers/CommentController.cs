@@ -61,13 +61,19 @@ public class CommentController : ControllerBase
         await _commentRepository.CreateComment(comment);
         return Ok("Comment created");
     }
-
-    [Authorize(Policy = "NoteOwner")]
+    
     [HttpDelete]
     [Route("delete")]
     public async Task<IActionResult> DeleteComment(int commentId)
     {
-        await _commentRepository.DeleteCommentById(commentId);
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var result = await _commentRepository.DeleteCommentById(commentId, userId);
+
+        switch (result.ErrorCode)
+        {
+            case "not_found":
+                return NotFound("Comment not found or you are not owner");
+        }
         return Ok("Comment has been deleted");
     }
 

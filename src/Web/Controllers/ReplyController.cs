@@ -52,14 +52,20 @@ public class ReplyController : ControllerBase
         reply = await _replyRepository.CreateReply(reply);
         return Ok(reply);
     }
-
-    [Authorize(Policy = "NoteOwner")]
+    
     [HttpDelete]
     [Route("delete")]
     public async Task<IActionResult> DeleteComment(int replyId)
     {
-        await _replyRepository.DeleteReplyById(replyId);
-        return Ok("Comment has been deleted");
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var result = await _replyRepository.DeleteReplyById(replyId, userId);
+
+        switch (result.ErrorCode)
+        {
+            case "not_found":
+                return NotFound("Reply not found or you are not owner");
+        }
+        return Ok("Reply has been deleted");
     }
 
     [HttpPatch]
