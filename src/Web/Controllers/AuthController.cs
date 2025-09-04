@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using PetProject.Application.DTOs.Auth;
 using PetProject.Application.Models;
 using PetProject.Application.Services.Impl;
@@ -66,7 +65,7 @@ public class AuthController : ControllerBase
 
             return Ok(new { message = "Регистрация успешна. Приветственное письмо отправлено." });
         }
-        catch (Exception ex)
+        catch 
         {
             return Ok(new { message = "Регистрация успешна, но не удалось отправить приветственное письмо." });
         }

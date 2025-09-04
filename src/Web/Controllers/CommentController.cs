@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
-using PetProject.Application.DTOs.Responses;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
@@ -48,7 +47,7 @@ public class CommentController : ControllerBase
     [Route("create")]
     public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto dto)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty);
         var comment = new Comment
         {
             Author = dto.Author,
@@ -66,7 +65,7 @@ public class CommentController : ControllerBase
     [Route("delete")]
     public async Task<IActionResult> DeleteComment(int commentId)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty);
         var result = await _commentRepository.DeleteCommentById(commentId, userId);
 
         switch (result.ErrorCode)

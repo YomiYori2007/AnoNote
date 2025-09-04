@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
-using PetProject.Infrastructure.Repositories;
 
 namespace PetProject.Web.Controllers;
 
@@ -22,24 +21,25 @@ public class NoteController : ControllerBase
 
     [HttpGet]
     [Route("get-comm-and-repl")]
-    public async Task<Note> GetCommAndRepl(int id)
+    public async Task<IActionResult> GetCommAndRepl(int id)
     {
         var note = await _noteRepository.GetAllCommAndRepl(id);
-        if (note == null) { return null;}
-        return note;
+        if (note == null) { return NotFound();}
+        return Ok(note);
     }
     
     [HttpGet]
     [Route("get")]
-    public async Task<Note?> GetNoteById(int id)
+    public async Task<IActionResult> GetNoteById(int id)
     {
         var note = await _noteRepository.GetNoteById(id);
-        return note;
+        if (note == null) { return NotFound(); }
+        return Ok(note);
     }
 
     [HttpGet]
     [Route("get-pagination")]
-    public async Task<List<Note?>> GetNotesPagination(int page, int pageSize)
+    public async Task<List<Note>> GetNotesPagination(int page, int pageSize)
     {
         List<Note> notes = await _noteRepository.GetNotesPagination(page, pageSize);
         return notes;
@@ -49,7 +49,7 @@ public class NoteController : ControllerBase
     [Route("create")]
     public async Task<Note> CreateNote([FromBody] CreateNoteDto dto)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty);
         Note note = new Note
         {
             Title = dto.Title,
@@ -66,9 +66,9 @@ public class NoteController : ControllerBase
     
     [HttpDelete]
     [Route("delete")]
-    public async Task<IActionResult> DeleteNote(int noteId) 
+    public async Task<IActionResult> DeleteNote(int noteId)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty);
         var result = await _noteRepository.DeleteNote(noteId, userId);
 
         switch (result.ErrorCode)

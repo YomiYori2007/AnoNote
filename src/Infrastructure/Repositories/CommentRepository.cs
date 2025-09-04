@@ -53,7 +53,7 @@ public class CommentRepository : ICommentRepository
             };
         }
         
-        if (comment != null) _context.Comment.Remove(comment);
+        _context.Comment.Remove(comment);
         await _context.SaveChangesAsync();
         return new OperationResult() {Message = "Comment deleted!"};
     }

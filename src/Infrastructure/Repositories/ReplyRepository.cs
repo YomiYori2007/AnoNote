@@ -45,7 +45,7 @@ public class ReplyRepository : IReplyRepository
             };
         }
         
-        if (reply != null) _context.Reply.Remove(reply);
+        _context.Reply.Remove(reply);
         await _context.SaveChangesAsync();
         return new OperationResult() {Message = "Reply deleted"};
     }

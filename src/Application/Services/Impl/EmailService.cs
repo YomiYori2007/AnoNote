@@ -41,7 +41,7 @@ public class EmailService : IEmailService
             }
             catch
             {
-                Console.WriteLine("Письмо не потравилось хз почему");
+                Console.WriteLine("Письмо не отправилось хз почему");
             }
         }
     }

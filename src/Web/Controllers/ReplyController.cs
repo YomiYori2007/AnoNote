@@ -39,7 +39,7 @@ public class ReplyController : ControllerBase
     [Route("create")]
     public async Task<IActionResult> CreateReply([FromBody] CreateReplyDto dto)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty);
         Reply reply = new Reply
         {
             Author = dto.Author,
@@ -57,7 +57,7 @@ public class ReplyController : ControllerBase
     [Route("delete")]
     public async Task<IActionResult> DeleteComment(int replyId)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty);
         var result = await _replyRepository.DeleteReplyById(replyId, userId);
 
         switch (result.ErrorCode)
