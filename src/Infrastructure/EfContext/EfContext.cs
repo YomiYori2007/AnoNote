@@ -71,7 +71,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<EfContext>
     {
         var optionsBuilder = new DbContextOptionsBuilder<EfContext>();
         
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5430;Database=postgres_db;Username=postgres_user;Password=postgres_password");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5439;Database=anonote_db;Username=ano_user;Password=d8ky654n");
         
         return new EfContext(optionsBuilder.Options);
     }

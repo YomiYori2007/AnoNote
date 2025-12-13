@@ -7,32 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PetProject.Migrations
 {
     /// <inheritdoc />
-    public partial class Auth : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<Guid>(
-                name: "UserId",
-                table: "Reply",
-                type: "uuid",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
-
-            migrationBuilder.AddColumn<Guid>(
-                name: "UserId",
-                table: "Notes",
-                type: "uuid",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
-
-            migrationBuilder.AddColumn<Guid>(
-                name: "UserId",
-                table: "Comment",
-                type: "uuid",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -178,20 +157,89 @@ namespace PetProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Reply_UserId",
-                table: "Reply",
-                column: "UserId");
+            migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    NoteId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
+                    Author = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    Text = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Like = table.Column<int>(type: "integer", nullable: false),
+                    PublishedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.NoteId);
+                    table.ForeignKey(
+                        name: "FK_Notes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Notes_UserId",
-                table: "Notes",
-                column: "UserId");
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    CommentId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Author = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    CommentText = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Like = table.Column<int>(type: "integer", nullable: false),
+                    PublishedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    NoteId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.CommentId);
+                    table.ForeignKey(
+                        name: "FK_Comment_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comment_Notes_NoteId",
+                        column: x => x.NoteId,
+                        principalTable: "Notes",
+                        principalColumn: "NoteId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Comment_UserId",
-                table: "Comment",
-                column: "UserId");
+            migrationBuilder.CreateTable(
+                name: "Reply",
+                columns: table => new
+                {
+                    ReplyId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Author = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    CommentText = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Like = table.Column<int>(type: "integer", nullable: false),
+                    PublishedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CommentId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reply", x => x.ReplyId);
+                    table.ForeignKey(
+                        name: "FK_Reply_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reply_Comment_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comment",
+                        principalColumn: "CommentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -230,46 +278,35 @@ namespace PetProject.Migrations
                 column: "NormalizedUserName",
                 unique: true);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Comment_AspNetUsers_UserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_NoteId",
                 table: "Comment",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "NoteId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Notes_AspNetUsers_UserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_UserId",
+                table: "Comment",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notes_UserId",
                 table: "Notes",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "UserId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Reply_AspNetUsers_UserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Reply_CommentId",
                 table: "Reply",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reply_UserId",
+                table: "Reply",
+                column: "UserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Comment_AspNetUsers_UserId",
-                table: "Comment");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Notes_AspNetUsers_UserId",
-                table: "Notes");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Reply_AspNetUsers_UserId",
-                table: "Reply");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -286,34 +323,19 @@ namespace PetProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Reply");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Comment");
+
+            migrationBuilder.DropTable(
+                name: "Notes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Reply_UserId",
-                table: "Reply");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Notes_UserId",
-                table: "Notes");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Comment_UserId",
-                table: "Comment");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Reply");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Notes");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Comment");
         }
     }
 }
