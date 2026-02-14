@@ -2,6 +2,7 @@
 using Moq;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
+using PetProject.Application.Services.Impl;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 using PetProject.Web.Controllers;
@@ -26,8 +27,8 @@ public class RepliesControllerTests
         var mockrepo = new Mock<IReplyRepository>();
         mockrepo.Setup(p => p.GetReplyId(1))
             .ReturnsAsync(reply);
-        
-        var controller = new ReplyController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new ReplyController(mockrepo.Object, cache.Object);
         var result = await controller.GetReplyById(1);
         
         Assert.IsType<Reply>(result);
@@ -45,7 +46,8 @@ public class RepliesControllerTests
         };
         
         var mockrepo = new Mock<IReplyRepository>();
-        var controller = new ReplyController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new ReplyController(mockrepo.Object, cache.Object);
         var result = await controller.CreateReply(reply);
         
         Assert.IsType<IActionResult>(result, exactMatch: false);
@@ -80,7 +82,8 @@ public class RepliesControllerTests
         mockrepo.Setup(p => p.GetRepliesPagination(1, 2, 1))
             .ReturnsAsync(replies);
         
-        var controller = new ReplyController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new ReplyController(mockrepo.Object, cache.Object);
         var result = await controller.GetPagination(1, 2, 1);
         Assert.IsType<IActionResult>(result, exactMatch: false);
     }
@@ -89,7 +92,8 @@ public class RepliesControllerTests
     public async Task DeleteReplyById_ExistingId()
     {
         var mockrepo = new Mock<IReplyRepository>();
-        var controller = new ReplyController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new ReplyController(mockrepo.Object, cache.Object);
         var result = await controller.DeleteComment(1);
         Assert.IsType<OkObjectResult>(result);
     }
@@ -98,7 +102,8 @@ public class RepliesControllerTests
     public async Task DeleteReplyById_ReturnsOk()
     {
         var mockrepo = new Mock<IReplyRepository>();
-        var controller = new ReplyController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new ReplyController(mockrepo.Object, cache.Object);
         var result = await controller.DeleteComment(1);
         Assert.IsType<OkObjectResult>(result);
     }

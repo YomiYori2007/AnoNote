@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
+using PetProject.Application.Services.Impl;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
@@ -13,10 +14,12 @@ namespace PetProject.Web.Controllers;
 public class ReplyController : ControllerBase
 {
     private readonly IReplyRepository _replyRepository;
+    private readonly RedisService _cache;
     
-    public ReplyController(IReplyRepository replyRepository)
+    public ReplyController(IReplyRepository replyRepository, RedisService cache)
     {
         _replyRepository = replyRepository;
+        _cache = cache;
     }
 
     [HttpGet]

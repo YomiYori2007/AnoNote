@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
+using PetProject.Application.Services.Impl;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 
@@ -13,10 +14,12 @@ namespace PetProject.Web.Controllers;
 public class CommentController : ControllerBase
 {
     private readonly ICommentRepository _commentRepository;
+    private readonly RedisService _cache;
 
-    public CommentController(ICommentRepository commentRepository)
+    public CommentController(ICommentRepository commentRepository, RedisService cache)
     {
         _commentRepository = commentRepository;
+        _cache = cache;
     }
 
     [HttpGet]

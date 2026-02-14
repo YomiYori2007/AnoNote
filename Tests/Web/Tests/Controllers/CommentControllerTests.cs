@@ -2,6 +2,7 @@
 using Moq;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
+using PetProject.Application.Services.Impl;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 using PetProject.Web.Controllers;
@@ -25,7 +26,10 @@ public class CommentControllerTests
         var mockrepo = new Mock<ICommentRepository>();
         mockrepo.Setup(p => p.GetCommentById(1))
             .ReturnsAsync(comment);
-        var controller = new CommentController(mockrepo.Object);
+        
+        var cache = new Mock<RedisService>();
+        
+        var controller = new CommentController(mockrepo.Object, cache.Object);
         Comment? result = await controller.GetCommentById(1);
         Assert.NotNull(result);
         Assert.IsType<Comment>(result);
@@ -67,7 +71,8 @@ public class CommentControllerTests
         var mockrepo = new Mock<ICommentRepository>();
         mockrepo.Setup(p => p.GetCommentById(1))
             .ReturnsAsync(comment);
-        var controller = new CommentController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new CommentController(mockrepo.Object, cache.Object);
         var result = await controller.GetCommentById(1);
         Assert.NotNull(result);
         Assert.IsType<Comment>(result);
@@ -102,7 +107,8 @@ public class CommentControllerTests
         var mockrepo = new Mock<ICommentRepository>();
         mockrepo.Setup(p => p.GetCommentPagination(1, 2, 3))
             .ReturnsAsync(comment);
-        var controller = new CommentController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new CommentController(mockrepo.Object, cache.Object);
         var result = await controller.GetPagination(1, 2, 3);
         Assert.NotNull(result);
         Assert.IsType<List<Comment>>(result);
@@ -119,7 +125,8 @@ public class CommentControllerTests
             NoteId = 2
         };
         var mockrepo = new Mock<ICommentRepository>();
-        var controller = new CommentController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new CommentController(mockrepo.Object, cache.Object);
         
         var result = await controller.CreateComment(comment);
         
@@ -131,7 +138,8 @@ public class CommentControllerTests
     public async Task DeleteComment_ExistingId_ReturnsOk()
     {
         var mockrepo = new Mock<ICommentRepository>();
-        var controller = new CommentController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new CommentController(mockrepo.Object, cache.Object);
         var result = await controller.DeleteComment(1);
         
         Assert.IsType<OkObjectResult>(result);
@@ -141,7 +149,8 @@ public class CommentControllerTests
     public async Task LikeComment_ExistingId_ReturnsOk()
     {
         var mockrepo = new Mock<ICommentRepository>();
-        var controller = new CommentController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new CommentController(mockrepo.Object, cache.Object);
         var result = await controller.LikeComment(1);
         Assert.IsType<OkObjectResult>(result);
     }

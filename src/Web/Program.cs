@@ -10,14 +10,21 @@ using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 using PetProject.Infrastructure.EfContext;
 using PetProject.Infrastructure.Repositories;
+using StackExchange.Redis;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddDbContext<EfContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString")));
+
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    return ConnectionMultiplexer.Connect("localhost:6379");
+});
+
+builder.Services.AddScoped<RedisService>();
 
 builder.Services.AddOptions();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));

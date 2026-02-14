@@ -2,6 +2,7 @@
 using Moq;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.Application.DTOs.Requests;
+using PetProject.Application.Services.Impl;
 using PetProject.Domain.Entities;
 using PetProject.Domain.Repository;
 using PetProject.Web.Controllers;
@@ -26,8 +27,8 @@ public class NoteControllerTests
         var mockrepo = new Mock<INoteRepository>();
         mockrepo.Setup(r => r.GetNoteById(1))
             .ReturnsAsync(note);
-        
-        var controller = new NoteController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new NoteController(mockrepo.Object, cache.Object);
 
         IActionResult result = await controller.GetNoteById(1);
         
@@ -76,7 +77,8 @@ public class NoteControllerTests
         mockrepo.Setup(r => r.GetAllCommAndRepl(1))
             .ReturnsAsync(expectedNote);
         
-        NoteController controller = new NoteController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new NoteController(mockrepo.Object, cache.Object);
 
         var result = await controller.GetCommAndRepl(1);
         
@@ -116,7 +118,8 @@ public class NoteControllerTests
         mockrepo.Setup(r => r.GetNotesPagination(1, 2))
             .ReturnsAsync(notes);
         
-        var controller = new NoteController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new NoteController(mockrepo.Object, cache.Object);
         var result = await controller.GetNotesPagination(1, 2);
         
         Assert.Equal(notes, result);
@@ -134,7 +137,8 @@ public class NoteControllerTests
 
         
         var mockrepo = new Mock<INoteRepository>();
-        var controller = new NoteController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new NoteController(mockrepo.Object, cache.Object);
         
         var result = await controller.CreateNote(note);
         Assert.Equal(note.Author, result.Author);
@@ -146,7 +150,8 @@ public class NoteControllerTests
     public async Task DeleteNote_ExistingId_ReturnsOk()
     {
         var mockrepo = new Mock<INoteRepository>();
-        var controller = new NoteController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new NoteController(mockrepo.Object, cache.Object);
 
         var result = await controller.DeleteNote(1);
         Assert.IsType<OkObjectResult>(result);
@@ -166,7 +171,8 @@ public class NoteControllerTests
             Comments = null
         };
         var mockrepo = new Mock<INoteRepository>();
-        var controller = new NoteController(mockrepo.Object);
+        var cache = new Mock<RedisService>();
+        var controller = new NoteController(mockrepo.Object, cache.Object);
         var result = await controller.LikeNote(1);
         
         Assert.IsType<OkObjectResult>(result);

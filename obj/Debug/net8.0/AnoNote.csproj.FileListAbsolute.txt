@@ -798,3 +798,6 @@ C:\Users\kiral\RiderProjects\AnoNote\obj\Debug\net8.0\refint\AnoNote.dll
 C:\Users\kiral\RiderProjects\AnoNote\obj\Debug\net8.0\AnoNote.pdb
 C:\Users\kiral\RiderProjects\AnoNote\obj\Debug\net8.0\AnoNote.genruntimeconfig.cache
 C:\Users\kiral\RiderProjects\AnoNote\obj\Debug\net8.0\ref\AnoNote.dll
+C:\Users\kiral\RiderProjects\AnoNote\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\kiral\RiderProjects\AnoNote\bin\Debug\net8.0\StackExchange.Redis.dll
+C:\Users\kiral\RiderProjects\AnoNote\bin\Debug\net8.0\System.IO.Hashing.dll
